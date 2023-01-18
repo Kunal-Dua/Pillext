@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "79696661404",
+    "project_id": "pillext",
+    "storage_bucket": "pillext.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79696661404:android:d0478afefac1e5d3a2d659",
+        "android_client_info": {
+          "package_name": "com.example.pillext"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "79696661404-in0qpbrcjv2njluk3lrddt66od247qk5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9M5HD9PE8Rp1G-7agjXRLNGOrKz3jS-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "79696661404-in0qpbrcjv2njluk3lrddt66od247qk5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "79696661404-nufvn9l55f2ue1ok36n7eh7tq3647ngj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.pillext"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
