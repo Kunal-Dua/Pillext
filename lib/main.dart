@@ -1,5 +1,10 @@
+// ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pillext/responsive/mobileScreenLayout.dart';
+import 'package:pillext/responsive/responsive_layout_screen.dart';
+import 'package:pillext/responsive/webScreenLayout.dart';
+import 'package:pillext/utils/dimensions.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -13,7 +18,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: const Text('Flutter Demo Home Page'),
+      home: const ResponsiveLayout(webScreenLayout: WebScreenLayout(), mobileScreenLayout: MobileScreenLayout()),
     );
   }
 }
