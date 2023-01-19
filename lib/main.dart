@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pillext/HomeScreen.dart';
 import 'package:pillext/LoginScreen.dart';
 import 'package:pillext/responsive/mobileScreenLayout.dart';
 import 'package:pillext/responsive/responsive_layout_screen.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         "/":(context) => LoginScreen(),
         "/signUp":(context) => SignUpScreen(),
         "/login":(context) => LoginScreen(),
+        "/home":(context) => HomeScreen(),
       },
     );
   }

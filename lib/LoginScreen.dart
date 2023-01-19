@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pillext/HomeScreen.dart';
+import 'package:pillext/resources/auth_methods.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -8,7 +10,26 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  logIn() {}
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void logIn() async {
+    String res = await AuthMethods().logInUser(
+        email: _emailController.text, password: _passwordController.text);
+    if (res == "Successfully signed in") {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const HomeScreen()));
+    }
+    print(res);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Image.asset("assets/images/logo.png"),
             const SizedBox(height: 26),
             TextFormField(
+              controller: _emailController,
               decoration: const InputDecoration(
                 hintText: "Enter email id",
                 labelText: "Email Id",
@@ -29,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             const SizedBox(height: 16),
             TextFormField(
+              controller: _passwordController,
               decoration: const InputDecoration(
                 hintText: "Enter password",
                 labelText: "Password",

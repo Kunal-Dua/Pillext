@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -26,6 +24,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _bioController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  void signUpUser() async {
+    String res = await AuthMethods().signUpUser(
+      email: _emailController.text,
+      password: _passwordController.text,
+      bio: _bioController.text,
+      username: _usernameController.text,
+      file: _image!,
+    );
+    print(res);
   }
 
   void selectImage() async {
@@ -106,15 +115,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             const SizedBox(height: 22),
             InkWell(
-                onTap: () async {
-                  String res = await AuthMethods().signUpUser(
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                    bio: _bioController.text,
-                    username: _usernameController.text,
-                  );
-                  print(res);
-                },
+                onTap: signUpUser,
                 child: Container(
                   alignment: Alignment.center,
                   width: double.infinity,
