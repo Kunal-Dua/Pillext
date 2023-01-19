@@ -1,10 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pillext/LoginScreen.dart';
 import 'package:pillext/responsive/mobileScreenLayout.dart';
 import 'package:pillext/responsive/responsive_layout_screen.dart';
 import 'package:pillext/responsive/webScreenLayout.dart';
-import 'package:pillext/utils/dimensions.dart';
+import 'package:pillext/signUpScrenn.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -26,7 +27,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: const ResponsiveLayout(webScreenLayout: WebScreenLayout(), mobileScreenLayout: MobileScreenLayout()),
+      // home: const ResponsiveLayout(
+      //     webScreenLayout: WebScreenLayout(),
+      //     mobileScreenLayout: MobileScreenLayout()),
+      // home: LoginScreen(),
+      routes: {
+        "/":(context) => LoginScreen(),
+        "/signUp":(context) => SignUpScreen(),
+        "/login":(context) => LoginScreen(),
+      },
     );
   }
 }
