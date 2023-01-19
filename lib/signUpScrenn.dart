@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pillext/resources/auth_methods.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -8,7 +9,20 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  signUp() {}
+  final _emailController = TextEditingController();
+  final _usernameController = TextEditingController();
+  final _bioController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _usernameController.dispose();
+    _bioController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ],
             ),
             TextFormField(
+              controller: _emailController,
               decoration: const InputDecoration(
                 hintText: "Enter email id",
                 labelText: "Email Id",
@@ -49,6 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             const SizedBox(height: 16),
             TextFormField(
+              controller: _usernameController,
               decoration: const InputDecoration(
                 hintText: "Enter Username",
                 labelText: "Username",
@@ -56,6 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             const SizedBox(height: 16),
             TextFormField(
+              controller: _bioController,
               decoration: const InputDecoration(
                 hintText: "Enter Bio",
                 labelText: "Bio",
@@ -63,6 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             const SizedBox(height: 16),
             TextFormField(
+              controller: _passwordController,
               decoration: const InputDecoration(
                 hintText: "Enter password",
                 labelText: "Password",
@@ -70,16 +88,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
               obscureText: true,
             ),
             const SizedBox(height: 22),
-            ElevatedButton(
-              onPressed: signUp,
-              style: ElevatedButton.styleFrom(
-                elevation: 3,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32.0)),
-                minimumSize: const Size(100, 40),
-              ),
-              child: const Text("Sign Up"),
-            ),
+            InkWell(
+                onTap: () async {
+                  String res = await AuthMethods().signUpUser(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    bio: _bioController.text,
+                    username: _usernameController.text,
+                  );
+                  print(res);
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12),
+                  child: Text(
+                    "Sign Up",
+                    style: TextStyle(fontSize: 12, color: Colors.white),
+                  ),
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(4))),
+                    color: Colors.indigo,
+                  ),
+                )),
           ],
         ),
       )),
