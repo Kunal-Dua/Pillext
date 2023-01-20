@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pillext/providers/user_provider.dart';
+import 'package:pillext/utils/gobalVariables.dart';
+import 'package:pillext/models/user.dart' as model;
+import 'package:provider/provider.dart';
 
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({super.key});
@@ -37,16 +41,10 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
 
     return Scaffold(
       body: PageView(
-        children: [
-          Text("feed"),
-          Text("search"),
-          Text("add post"),
-          Text("fav"),
-          Text("user"),
-        ],
         controller: pageController,
         onPageChanged: onPageChanged,
         physics: NeverScrollableScrollPhysics(),
+        children: homeScreenPages,
       ),
       bottomNavigationBar: CupertinoTabBar(items: [
         BottomNavigationBarItem(

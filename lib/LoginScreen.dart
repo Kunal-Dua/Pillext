@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pillext/HomeScreen.dart';
 import 'package:pillext/resources/auth_methods.dart';
 import 'package:pillext/responsive/mobileScreenLayout.dart';
 import 'package:pillext/responsive/responsive_layout_screen.dart';
@@ -65,7 +64,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               obscureText: true,
             ),
-            const SizedBox(height: 22),
             ElevatedButton(
               onPressed: logIn,
               style: ElevatedButton.styleFrom(
@@ -77,7 +75,6 @@ class _LoginScreenState extends State<LoginScreen> {
               child: const Text("Log In"),
             ),
             //Google Btn
-            const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(

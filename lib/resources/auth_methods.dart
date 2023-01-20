@@ -1,13 +1,20 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pillext/models/user.dart' as model;
 import 'package:pillext/resources/storage_methods.dart';
 
 class AuthMethods {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  Future<model.User> getUserDetails() async {
+    User currentUser = auth.currentUser!;
+    DocumentSnapshot snap =
+        await firestore.collection("users").doc(currentUser.uid).get();
+    return model.User.fromSnap(snap);
+  }
 
   Future<String> signUpUser({
     required String email,
@@ -24,15 +31,19 @@ class AuthMethods {
       String photoUrl = await StorageMethods()
           .uplaodImageToStorage("profilePics", file, false);
 
-      firestore.collection("users").doc(currentUser.user!.uid).set({
-        "uid": currentUser.user!.uid,
-        "email": email,
-        "username": username,
-        "bio": bio,
-        "followers": [],
-        "following": [],
-        "photoUrl": photoUrl,
-      });
+      model.User user = model.User(
+        uid: currentUser.user!.uid,
+        email: email,
+        photoUrl: photoUrl,
+        username: username,
+        bio: bio,
+        followers: [],
+        following: [],
+      );
+      firestore
+          .collection("users")
+          .doc(currentUser.user!.uid)
+          .set(user.toJson());
       res = "Success";
     } catch (err) {
       res = err.toString();
