@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pillext/HomeScreen.dart';
 import 'package:pillext/resources/auth_methods.dart';
+import 'package:pillext/responsive/mobileScreenLayout.dart';
+import 'package:pillext/responsive/responsive_layout_screen.dart';
+import 'package:pillext/responsive/webScreenLayout.dart';
+import 'package:pillext/signUpScrenn.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -24,8 +28,11 @@ class _LoginScreenState extends State<LoginScreen> {
     String res = await AuthMethods().logInUser(
         email: _emailController.text, password: _passwordController.text);
     if (res == "Successfully signed in") {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomeScreen()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+                webScreenLayout: WebScreenLayout(),
+                mobileScreenLayout: MobileScreenLayout(),
+              )));
     }
     print(res);
   }
@@ -73,7 +80,8 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, "/signUp");
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const SignUpScreen()));
               },
               style: ElevatedButton.styleFrom(
                 elevation: 3,

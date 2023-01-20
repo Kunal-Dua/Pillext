@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:pillext/HomeScreen.dart';
@@ -28,16 +29,30 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      // home: const ResponsiveLayout(
-      //     webScreenLayout: WebScreenLayout(),
-      //     mobileScreenLayout: MobileScreenLayout()),
-      // home: LoginScreen(),
-      routes: {
-        "/":(context) => LoginScreen(),
-        "/signUp":(context) => SignUpScreen(),
-        "/login":(context) => LoginScreen(),
-        "/home":(context) => HomeScreen(),
-      },
+      home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              if (snapshot.hasData) {
+                return const ResponsiveLayout(
+                  webScreenLayout: WebScreenLayout(),
+                  mobileScreenLayout: MobileScreenLayout(),
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('${snapshot.error}'),
+                );
+              }
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.indigo,
+                ),
+              );
+            }
+            return const LoginScreen();
+          }),
     );
   }
 }
