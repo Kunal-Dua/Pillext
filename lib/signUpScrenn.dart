@@ -2,6 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pillext/resources/auth_methods.dart';
+import 'package:pillext/responsive/mobileScreenLayout.dart';
+import 'package:pillext/responsive/responsive_layout_screen.dart';
+import 'package:pillext/responsive/webScreenLayout.dart';
 import 'package:pillext/utils/image_pick.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -35,6 +38,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
       file: _image!,
     );
     print(res);
+    if (res == "Success") {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+                webScreenLayout: WebScreenLayout(),
+                mobileScreenLayout: MobileScreenLayout(),
+              )));
+    }
   }
 
   void selectImage() async {
