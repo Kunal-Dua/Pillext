@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pillext/Screens/comment_screen.dart';
 import 'package:pillext/providers/user_provider.dart';
 import 'package:pillext/resources/firestore_methods.dart';
 import 'package:pillext/widgets/like_animation.dart';
@@ -153,7 +154,11 @@ class _PostCardState extends State<PostCard> {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => CommentScreen(),
+                  ));
+                },
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 2),
                   child: const Text(
