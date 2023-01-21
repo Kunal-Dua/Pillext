@@ -2,11 +2,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:pillext/LoginScreen.dart';
+import 'package:pillext/Screens/login_screen.dart';
 import 'package:pillext/providers/user_provider.dart';
-import 'package:pillext/responsive/mobileScreenLayout.dart';
+import 'package:pillext/responsive/mobile_screen_layout.dart';
 import 'package:pillext/responsive/responsive_layout_screen.dart';
-import 'package:pillext/responsive/webScreenLayout.dart';
+import 'package:pillext/responsive/web_screen_layout.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 

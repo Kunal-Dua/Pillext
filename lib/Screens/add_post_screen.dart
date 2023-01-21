@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pillext/providers/user_provider.dart';
-import 'package:pillext/resources/firestoreMethods.dart';
+import 'package:pillext/resources/firestore_methods.dart';
 import 'package:pillext/utils/image_pick.dart';
 import 'package:pillext/models/user.dart' as model;
 import 'package:provider/provider.dart';
@@ -54,7 +54,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
         isLoading = false;
       });
     } catch (err) {
-      print(err.toString());
+      // print(err.toString());
     }
   }
 
@@ -64,7 +64,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
         builder: (context) {
           return SimpleDialog(title: const Text("Create a Post"), children: [
             SimpleDialogOption(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: const Text("Take a Photo"),
               onPressed: () async {
                 Navigator.of(context).pop();
@@ -75,7 +75,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               },
             ),
             SimpleDialogOption(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: const Text("Choose Photo from Gallery"),
               onPressed: () async {
                 Navigator.of(context).pop();
@@ -86,7 +86,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               },
             ),
             SimpleDialogOption(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: const Text("Cancel"),
               onPressed: () {
                 Navigator.of(context).pop();

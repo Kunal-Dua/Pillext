@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pillext/resources/auth_methods.dart';
-import 'package:pillext/responsive/mobileScreenLayout.dart';
+import 'package:pillext/responsive/mobile_screen_layout.dart';
 import 'package:pillext/responsive/responsive_layout_screen.dart';
-import 'package:pillext/responsive/webScreenLayout.dart';
+import 'package:pillext/responsive/web_screen_layout.dart';
 import 'package:pillext/utils/image_pick.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -37,7 +37,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       username: _usernameController.text,
       file: _image!,
     );
-    print(res);
     if (res == "Success") {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => const ResponsiveLayout(
@@ -64,11 +63,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: Column(
           children: [
             const SizedBox(height: 46),
-            Container(
-                child: const Text(
+            const Text(
               "Sign Up",
               style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-            )),
+            ),
             const SizedBox(height: 36),
             Stack(
               children: [
@@ -130,14 +128,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   alignment: Alignment.center,
                   width: double.infinity,
                   padding: const EdgeInsets.all(12),
-                  child: Text(
-                    "Sign Up",
-                    style: TextStyle(fontSize: 12, color: Colors.white),
-                  ),
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(4))),
                     color: Colors.indigo,
+                  ),
+                  child: const Text(
+                    "Sign Up",
+                    style: TextStyle(fontSize: 12, color: Colors.white),
                   ),
                 )),
           ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pillext/addPostScreen.dart';
+import 'package:pillext/Screens/add_post_screen.dart';
 
 const webScreenSize = 600;
 

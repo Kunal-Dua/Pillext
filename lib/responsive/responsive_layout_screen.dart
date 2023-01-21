@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pillext/providers/user_provider.dart';
-import 'package:pillext/utils/gobalVariables.dart';
+import 'package:pillext/utils/gobal_variables.dart';
 import 'package:provider/provider.dart';
 
 class ResponsiveLayout extends StatefulWidget {
@@ -23,8 +23,8 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
   }
 
   addData() async {
-    UserProvider _userProvider = Provider.of(context, listen: false);
-    await _userProvider.refreshUser();
+    UserProvider userProvider = Provider.of(context, listen: false);
+    await userProvider.refreshUser();
   }
 
   @override

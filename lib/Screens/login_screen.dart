@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pillext/resources/auth_methods.dart';
-import 'package:pillext/responsive/mobileScreenLayout.dart';
+import 'package:pillext/responsive/mobile_screen_layout.dart';
 import 'package:pillext/responsive/responsive_layout_screen.dart';
-import 'package:pillext/responsive/webScreenLayout.dart';
-import 'package:pillext/signUpScrenn.dart';
+import 'package:pillext/responsive/web_screen_layout.dart';
+import 'package:pillext/Screens/sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -33,7 +33,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 mobileScreenLayout: MobileScreenLayout(),
               )));
     }
-    print(res);
   }
 
   @override
