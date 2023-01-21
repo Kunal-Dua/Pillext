@@ -25,7 +25,7 @@ class FireStoreMethods {
         postId: postId,
         datePublished: Timestamp.now(),
         postUrl: photoUrl,
-        postImage: photoImage,
+        profileImage: photoImage,
         likes: [],
       );
       firestore.collection("posts").doc(postId).set(post.toJson());
