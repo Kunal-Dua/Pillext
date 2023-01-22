@@ -123,8 +123,13 @@ class _AddPostScreenState extends State<AddPostScreen> {
               ),
               actions: [
                 TextButton(
-                  onPressed: () => postImage(_descriptionController.text,
-                      _file!, user.uid, user.username, user.photoUrl),
+                  onPressed: () {
+                    postImage(_descriptionController.text, _file!, user.uid,
+                        user.username, user.photoUrl);
+                    setState(() {
+                      _descriptionController.text = "";
+                    });
+                  },
                   child: const Text(
                     "Post",
                     style: TextStyle(
