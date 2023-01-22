@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -63,7 +64,25 @@ class _SearchScreenState extends State<SearchScreen> {
                     });
               },
             )
-          : Text("Post"),
+          : FutureBuilder(
+              future: FirebaseFirestore.instance.collection("posts").get(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  const Center(child: CircularProgressIndicator());
+                }
+                return StaggeredGridView.countBuilder(
+                  crossAxisCount: 3,
+                  itemCount: (snapshot.data! as dynamic).docs.length,
+                  itemBuilder: (context, index) => Image.network(
+                      (snapshot.data! as dynamic).docs[index]['postUrl']),
+                  staggeredTileBuilder: (index) => StaggeredTile.count(
+                      (index % 7 == 0) ? 2 : 1, (index % 7 == 0) ? 2 : 1),
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                  padding: const  EdgeInsets.symmetric(horizontal: 8),
+                );
+              },
+            ),
     );
   }
 }
