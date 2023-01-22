@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:pillext/models/post.dart';
 import 'package:uuid/uuid.dart';
 import 'package:pillext/resources/storage_methods.dart';
@@ -13,10 +14,11 @@ class FireStoreMethods {
       String username, String photoImage) async {
     String res = "";
     try {
-      String photoUrl =
+      List arr =
           await StorageMethods().uplaodImageToStorage("posts", file, true);
 
-      String postId = const Uuid().v1();
+      String photoUrl = arr[0];
+      String postId = arr[1];
 
       Post post = Post(
         description: description,
@@ -72,6 +74,15 @@ class FireStoreMethods {
           "datePublished": Timestamp.now(),
         });
       }
+    } catch (err) {
+      print(err.toString());
+    }
+  }
+
+  Future<void> deletePost(String postId) async {
+    try {
+      firestore.collection("posts").doc(postId).delete();
+      StorageMethods().deletePostFromStroage(postId);
     } catch (err) {
       print(err.toString());
     }
