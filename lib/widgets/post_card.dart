@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pillext/Screens/comment_screen.dart';
@@ -18,6 +20,24 @@ class PostCard extends StatefulWidget {
 
 class _PostCardState extends State<PostCard> {
   bool isLikeAnimating = false;
+  int commentsLen = 0;
+  int commentLen = 0;
+
+  void getComments() async {
+    QuerySnapshot snap = await FirebaseFirestore.instance
+        .collection("posts")
+        .doc(widget.snap["postId"])
+        .collection("comments")
+        .get();
+    commentsLen = snap.docs.length;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getComments();
+  }
+
   @override
   Widget build(BuildContext context) {
     final model.User user = Provider.of<UserProvider>(context).getUser;
@@ -119,7 +139,14 @@ class _PostCardState extends State<PostCard> {
                   }),
             ),
             IconButton(
-                icon: const Icon(Icons.comment_outlined), onPressed: () {}),
+                icon: const Icon(Icons.comment_outlined),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => CommentScreen(
+                      snap: widget.snap,
+                    ),
+                  ));
+                }),
             IconButton(icon: const Icon(Icons.send), onPressed: () {}),
             Expanded(
                 child: Align(
@@ -156,14 +183,16 @@ class _PostCardState extends State<PostCard> {
               InkWell(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => CommentScreen(),
+                    builder: (context) => CommentScreen(
+                      snap: widget.snap,
+                    ),
                   ));
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: const Text(
-                    "View all 200 comments",
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                  child: Text(
+                    'View all $commentsLen comments',
+                    style: const TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                 ),
               ),

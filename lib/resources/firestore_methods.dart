@@ -39,12 +39,37 @@ class FireStoreMethods {
   Future<void> likePost(String uid, String postId, List likes) async {
     try {
       if (likes.contains(uid)) {
-        firestore.collection("posts").doc(postId).update({
+        await firestore.collection("posts").doc(postId).update({
           "likes": FieldValue.arrayRemove([uid])
         });
       } else {
-        firestore.collection("posts").doc(postId).update({
+        await firestore.collection("posts").doc(postId).update({
           "likes": FieldValue.arrayUnion([uid])
+        });
+      }
+    } catch (err) {
+      print(err.toString());
+    }
+  }
+
+  Future<void> postComment(String uid, String postId, String text,
+      String username, String photoUrl) async {
+    try {
+      String commentId = const Uuid().v1();
+      if (text.isNotEmpty) {
+        await firestore
+            .collection("posts")
+            .doc(postId)
+            .collection("comments")
+            .doc(commentId)
+            .set({
+          "uid": uid,
+          "username": username,
+          "photoUrl": photoUrl,
+          "comment": text,
+          "postId": postId,
+          "commentId": commentId,
+          "datePublished": Timestamp.now(),
         });
       }
     } catch (err) {
