@@ -35,6 +35,18 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  void signInGoogle() async {
+    String res = await AuthMethods().signInWithGoogle();
+    if (res == "Success") {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => const ResponsiveLayout(
+          webScreenLayout: WebScreenLayout(),
+          mobileScreenLayout: MobileScreenLayout(),
+        ),
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,6 +86,16 @@ class _LoginScreenState extends State<LoginScreen> {
               child: const Text("Log In"),
             ),
             //Google Btn
+            ElevatedButton(
+              onPressed: signInGoogle,
+              style: ElevatedButton.styleFrom(
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(32.0)),
+                minimumSize: const Size(100, 40),
+              ),
+              child: const Text("Log In With Google"),
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
