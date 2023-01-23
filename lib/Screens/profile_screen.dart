@@ -45,7 +45,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           .get();
 
       postLen = postSnap.docs.length;
-      print(postLen);
       following = userData['following'].length;
       followers = userData['followers'].length;
       isFollowing = userSnap
