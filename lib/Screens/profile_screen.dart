@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pillext/Screens/edit_profile_screen.dart';
 import 'package:pillext/Screens/login_screen.dart';
 import 'package:pillext/resources/auth_methods.dart';
 import 'package:pillext/resources/firestore_methods.dart';
@@ -102,20 +103,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 children: [
                                   FirebaseAuth.instance.currentUser!.uid ==
                                           widget.uid
-                                      ? FollowButton(
-                                          text: "Sign Out",
-                                          backgroundColor: Colors.blue,
-                                          borderColor: Colors.grey,
-                                          textColor: Colors.white,
-                                          function: () async {
-                                            AuthMethods().signOut();
-                                            Navigator.of(context)
-                                                .pushReplacement(
-                                                    MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const LoginScreen(),
-                                            ));
-                                          },
+                                      ? Column(
+                                          children: [
+                                            FollowButton(
+                                              text: "Edit profile",
+                                              backgroundColor: Colors.white,
+                                              borderColor: Colors.blueGrey,
+                                              textColor: Colors.black54,
+                                              function: () {
+                                                Navigator.of(context)
+                                                    .push(MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const EditProfile(),
+                                                ));
+                                              },
+                                            ),
+                                            FollowButton(
+                                              text: "Sign Out",
+                                              backgroundColor: Colors.blue,
+                                              borderColor: Colors.grey,
+                                              textColor: Colors.white,
+                                              function: () async {
+                                                AuthMethods().signOut();
+                                                Navigator.of(context)
+                                                    .pushReplacement(
+                                                        MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const LoginScreen(),
+                                                ));
+                                              },
+                                            ),
+                                          ],
                                         )
                                       : isFollowing
                                           ? FollowButton(
@@ -218,23 +236,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
         Container(
           margin: const EdgeInsets.only(top: 4),
           child: Text(
             num.toString(),
             style: const TextStyle(
-              fontSize: 15,
+              fontSize: 20,
               fontWeight: FontWeight.w500,
             ),
           ),
-        )
+        ),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ],
     );
   }
