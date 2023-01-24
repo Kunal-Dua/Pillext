@@ -171,9 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SquareTile(
-                      onTap: () {
-                        AuthMethods().signInWithGoogle();
-                      },
+                      onTap: signInGoogle,
                       imagePath: "assets/images/google_logo.png",
                     ),
                     // const SizedBox(width: 20),
