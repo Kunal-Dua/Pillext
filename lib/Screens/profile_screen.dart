@@ -68,11 +68,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: CircularProgressIndicator(),
           )
         : Scaffold(
-            appBar: AppBar(
-              title: Text(userData["username"]),
-              centerTitle: false,
-            ),
-            body: ListView(
+            body: SafeArea(
+            child: ListView(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -228,7 +225,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   }),
                 ),
               ],
-            ));
+            ),
+          ));
   }
 
   Column buildContainer(int num, String label) {

@@ -6,6 +6,7 @@ import 'package:pillext/responsive/web_screen_layout.dart';
 import 'package:pillext/Screens/sign_up_screen.dart';
 import 'package:pillext/widgets/login_button.dart';
 import 'package:pillext/widgets/square_tile.dart';
+import 'package:flutter/services.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -52,6 +53,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.black,
+        statusBarBrightness: Brightness.light,
+      ),
+    );
     return Scaffold(
       backgroundColor: Colors.grey[200],
       body: SafeArea(

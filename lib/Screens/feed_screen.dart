@@ -9,6 +9,8 @@ class FeedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        shadowColor: null,
         title: const Text(
           "Pillext",
         ),
