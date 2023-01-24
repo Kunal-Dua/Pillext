@@ -7,6 +7,7 @@ import 'package:pillext/Screens/sign_up_screen.dart';
 import 'package:pillext/widgets/button.dart';
 import 'package:pillext/widgets/square_tile.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart' show TargetPlatform;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -53,6 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var platform = Theme.of(context).platform;
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: Colors.black,
@@ -174,16 +176,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       onTap: signInGoogle,
                       imagePath: "assets/images/google_logo.png",
                     ),
-                    // const SizedBox(width: 20),
-                    // SquareTile(
-                    //   onTap: () {},
-                    //   imagePath: "assets/images/facebook_logo.png",
-                    // ),
-                    // const SizedBox(width: 20),
-                    // SquareTile(
-                    //   onTap: () {},
-                    //   imagePath: "assets/images/apple_logo.png",
-                    // ),
+                    const SizedBox(width: 20),
+                    if (platform == TargetPlatform.iOS)
+                      SquareTile(
+                        onTap: () {},
+                        imagePath: "assets/images/apple_logo.png",
+                      ),
+                    const SizedBox(width: 20),
+                    SquareTile(
+                      onTap: () {},
+                      imagePath: "assets/images/facebook_logo.png",
+                    ),
                   ],
                 ),
                 const SizedBox(height: 50),
