@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pillext/Screens/comment_screen.dart';
@@ -66,31 +67,57 @@ class _PostCardState extends State<PostCard> {
               IconButton(
                 icon: const Icon(Icons.more_vert),
                 onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => Dialog(
-                        child: ListView(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shrinkWrap: true,
-                      children: [
-                        'Delete',
-                      ]
-                          .map((e) => InkWell(
-                                onTap: () async{
-                                  FireStoreMethods().deletePost(widget.snap['postId']);
-                                  Navigator.of(context).pop();
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 12,
-                                    horizontal: 16,
-                                  ),
-                                  child: Text(e),
-                                ),
-                              ))
-                          .toList(),
-                    )),
-                  );
+                  widget.snap["uid"] == user.uid
+                      ? showDialog(
+                          context: context,
+                          builder: (context) => Dialog(
+                              child: ListView(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shrinkWrap: true,
+                            children: [
+                              'Delete',
+                            ]
+                                .map((e) => InkWell(
+                                      onTap: () async {
+                                        FireStoreMethods()
+                                            .deletePost(widget.snap['postId']);
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 12,
+                                          horizontal: 16,
+                                        ),
+                                        child: Text(e),
+                                      ),
+                                    ))
+                                .toList(),
+                          )),
+                        )
+                      : showDialog(
+                          context: context,
+                          builder: (context) => Dialog(
+                              child: ListView(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shrinkWrap: true,
+                            children: [
+                              'Cancel',
+                            ]
+                                .map((e) => InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 12,
+                                          horizontal: 16,
+                                        ),
+                                        child: Text(e),
+                                      ),
+                                    ))
+                                .toList(),
+                          )),
+                        );
                 },
               )
             ],
