@@ -31,11 +31,12 @@ class _EditProfileState extends State<EditProfile> {
     TextEditingController _passwordController = TextEditingController();
     String imageUrl = user.photoUrl;
 
+    @override
     void dispose() {
+      super.dispose();
       _usernameController.dispose();
       _bioController.dispose();
       _passwordController.dispose();
-      super.dispose();
     }
 
     void selectImage() async {
@@ -49,6 +50,8 @@ class _EditProfileState extends State<EditProfile> {
       });
 
       FireStoreMethods().updatePhotoUrl(uid: user.uid, url: photoUrl);
+
+      
     }
 
     return Scaffold(

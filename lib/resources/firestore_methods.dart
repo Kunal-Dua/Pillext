@@ -71,6 +71,7 @@ class FireStoreMethods {
           "postId": postId,
           "commentId": commentId,
           "datePublished": Timestamp.now(),
+          "likes": [],
         });
       }
     } catch (err) {
@@ -78,9 +79,32 @@ class FireStoreMethods {
     }
   }
 
+  Future<void> likeComment(
+      String uid, List likes, String postId, String commentId) async {
+    if (likes.contains(uid)) {
+      await firestore
+          .collection("posts")
+          .doc(postId)
+          .collection("comments")
+          .doc(commentId)
+          .update({
+        "likes": FieldValue.arrayRemove([uid])
+      });
+    } else {
+      await firestore
+          .collection("posts")
+          .doc(postId)
+          .collection("comments")
+          .doc(commentId)
+          .update({
+        "likes": FieldValue.arrayUnion([uid])
+      });
+    }
+  }
+
   Future<void> deletePost(String postId) async {
     try {
-      firestore.collection("posts").doc(postId).delete();
+      await firestore.collection("posts").doc(postId).delete();
       StorageMethods().deletePostFromStroage(postId);
     } catch (err) {
       print(err.toString());
@@ -140,5 +164,9 @@ class FireStoreMethods {
     });
 
     await FirebaseAuth.instance.currentUser!.updatePhotoURL(url);
+    QuerySnapshot snap =
+        await firestore.collection("posts").where(uid, isEqualTo: uid).get();
+
+    print(snap.toString());
   }
 }
