@@ -30,6 +30,7 @@ class FireStoreMethods {
         likes: [],
       );
       firestore.collection("posts").doc(postId).set(post.toJson());
+
       res = "Success";
     } catch (err) {
       res = err.toString();
@@ -110,6 +111,7 @@ class FireStoreMethods {
       print(err.toString());
     }
   }
+
 
   Future<void> followUser(String uid, String followUid) async {
     try {

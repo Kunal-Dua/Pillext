@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:intl/intl.dart';
 import 'package:pillext/models/user.dart' as model;
 import 'package:pillext/resources/storage_methods.dart';
 
@@ -13,6 +14,7 @@ class AuthMethods {
     User currentUser = auth.currentUser!;
     DocumentSnapshot snap =
         await firestore.collection("users").doc(currentUser.uid).get();
+
     return model.User.fromSnap(snap);
   }
 
@@ -40,6 +42,7 @@ class AuthMethods {
         bio: bio,
         followers: [],
         following: [],
+        notifications: [],
       );
       firestore
           .collection("users")
@@ -79,15 +82,24 @@ class AuthMethods {
       UserCredential currentUser =
           await FirebaseAuth.instance.signInWithCredential(credential);
 
-      firestore.collection("users").doc(currentUser.user!.uid).set({
-        "uid": currentUser.user!.uid,
-        "email": currentUser.user!.email,
-        "photoUrl": currentUser.user!.photoURL,
-        "username": currentUser.user!.displayName,
-        "bio": "",
-        "followers": [],
-        "following": [],
-      });
+      String time = DateFormat.yMMMd().format(Timestamp.now().toDate());
+
+      if (currentUser.additionalUserInfo!.isNewUser) {
+        await firestore.collection("users").doc(currentUser.user!.uid).set({
+          "uid": currentUser.user!.uid,
+          "email": currentUser.user!.email,
+          "photoUrl": currentUser.user!.photoURL,
+          "username": currentUser.user!.displayName,
+          "bio": "",
+          "followers": [],
+          "following": [],
+          "notifications": ['User signed in at $time'],
+        });
+      } else {
+        await firestore.collection("users").doc(currentUser.user!.uid).update({
+          "notifications": FieldValue.arrayUnion(['User signed in at $time']),
+        });
+      }
       res = "Success";
     } catch (err) {
       res = err.toString();

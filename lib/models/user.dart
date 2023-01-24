@@ -9,15 +9,18 @@ class User {
   final String bio;
   final List followers;
   final List following;
+  final List notifications;
 
-  const User(
-      {required this.uid,
-      required this.email,
-      required this.photoUrl,
-      required this.username,
-      required this.bio,
-      required this.followers,
-      required this.following});
+  const User({
+    required this.uid,
+    required this.email,
+    required this.photoUrl,
+    required this.username,
+    required this.bio,
+    required this.followers,
+    required this.following,
+    required this.notifications,
+  });
 
   Map<String, dynamic> toJson() => {
         "uid": uid,
@@ -27,6 +30,7 @@ class User {
         "bio": bio,
         "followers": followers,
         "following": following,
+        "notifications": notifications,
       };
 
   static User fromSnap(DocumentSnapshot snap) {
@@ -39,6 +43,7 @@ class User {
       bio: snapshot['bio'],
       followers: snapshot['followers'],
       following: snapshot['following'],
+      notifications: snapshot['notifications'],
     );
   }
 }
