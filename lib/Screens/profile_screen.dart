@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pillext/Screens/edit_profile_screen.dart';
 import 'package:pillext/Screens/login_screen.dart';
 import 'package:pillext/resources/auth_methods.dart';
@@ -63,6 +64,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.black,
+        statusBarBrightness: Brightness.light,
+      ),
+    );
     return isLoading
         ? const Center(
             child: CircularProgressIndicator(),

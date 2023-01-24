@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pillext/providers/user_provider.dart';
 import 'package:pillext/resources/firestore_methods.dart';
@@ -98,6 +99,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.black,
+        statusBarBrightness: Brightness.light,
+      ),
+    );
     model.User user = Provider.of<UserProvider>(context).getUser;
     return _file == null
         ? Scaffold(
