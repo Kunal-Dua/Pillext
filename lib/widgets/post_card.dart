@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pillext/Screens/comment_screen.dart';
+import 'package:pillext/Screens/profile_screen.dart';
 import 'package:pillext/providers/user_provider.dart';
 import 'package:pillext/resources/firestore_methods.dart';
 import 'package:pillext/widgets/like_animation.dart';
@@ -48,8 +49,16 @@ class _PostCardState extends State<PostCard> {
           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
           child: Row(
             children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(widget.snap['profileImage']),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        ProfileScreen(uid: widget.snap["uid"]),
+                  ));
+                },
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(widget.snap['profileImage']),
+                ),
               ),
               Expanded(
                   child: Padding(
@@ -58,9 +67,17 @@ class _PostCardState extends State<PostCard> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.snap['username'],
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                ProfileScreen(uid: widget.snap["uid"]),
+                          ));
+                        },
+                        child: Text(
+                          widget.snap['username'],
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       )
                     ]),
               )),
