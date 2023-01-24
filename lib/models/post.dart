@@ -1,6 +1,4 @@
-// ignore_for_file: file_names
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 class Post {
   final String uid;
   final String description;
@@ -9,7 +7,7 @@ class Post {
   final String postId;
   final datePublished;
   final String profileImage;
-  final likes;
+  final List likes;
 
   const Post(
       {required this.uid,

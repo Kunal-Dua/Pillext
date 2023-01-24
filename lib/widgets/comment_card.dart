@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file:  unnecessary_string_interpolations
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pillext/providers/user_provider.dart';
@@ -77,7 +77,7 @@ class _CommentCardState extends State<CommentCard> {
                                 color: Colors.black,
                               ),
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             Text(
                               '${widget.snap['likes'].length} like',
                               style: const TextStyle(

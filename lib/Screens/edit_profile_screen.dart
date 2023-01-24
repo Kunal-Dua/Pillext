@@ -1,10 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pillext/Screens/feed_screen.dart';
-import 'package:pillext/Screens/profile_screen.dart';
 import 'package:pillext/models/user.dart' as model;
 import 'package:pillext/providers/user_provider.dart';
 import 'package:pillext/resources/firestore_methods.dart';
@@ -50,8 +47,6 @@ class _EditProfileState extends State<EditProfile> {
       });
 
       FireStoreMethods().updatePhotoUrl(uid: user.uid, url: photoUrl);
-
-      
     }
 
     return Scaffold(
