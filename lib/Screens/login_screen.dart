@@ -176,16 +176,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       imagePath: "assets/images/google_logo.png",
                     ),
-                    const SizedBox(width: 20),
-                    SquareTile(
-                      onTap: () {},
-                      imagePath: "assets/images/facebook_logo.png",
-                    ),
-                    const SizedBox(width: 20),
-                    SquareTile(
-                      onTap: () {},
-                      imagePath: "assets/images/apple_logo.png",
-                    ),
+                    // const SizedBox(width: 20),
+                    // SquareTile(
+                    //   onTap: () {},
+                    //   imagePath: "assets/images/facebook_logo.png",
+                    // ),
+                    // const SizedBox(width: 20),
+                    // SquareTile(
+                    //   onTap: () {},
+                    //   imagePath: "assets/images/apple_logo.png",
+                    // ),
                   ],
                 ),
                 const SizedBox(height: 50),
