@@ -4,7 +4,7 @@ import 'package:pillext/responsive/mobile_screen_layout.dart';
 import 'package:pillext/responsive/responsive_layout_screen.dart';
 import 'package:pillext/responsive/web_screen_layout.dart';
 import 'package:pillext/Screens/sign_up_screen.dart';
-import 'package:pillext/widgets/login_button.dart';
+import 'package:pillext/widgets/button.dart';
 import 'package:pillext/widgets/square_tile.dart';
 import 'package:flutter/services.dart';
 
