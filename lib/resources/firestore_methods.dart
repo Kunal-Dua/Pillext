@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:pillext/models/post.dart';
 import 'package:uuid/uuid.dart';
 import 'package:pillext/resources/storage_methods.dart';
@@ -113,5 +112,33 @@ class FireStoreMethods {
     } catch (err) {
       print(err.toString());
     }
+  }
+
+  editBio({required String uid, required String text}) async {
+    await firestore.collection("users").doc(uid).update({
+      "bio": text,
+    });
+  }
+
+  editPassword({required String uid, required String text}) async {
+    await firestore.collection("users").doc(uid).update({
+      "email": text,
+    });
+    await FirebaseAuth.instance.currentUser!.updatePassword(text);
+  }
+
+  editUsername({required String uid, required String text}) async {
+    await firestore.collection("users").doc(uid).update({
+      "username": text,
+    });
+    await FirebaseAuth.instance.currentUser!.updateDisplayName(text);
+  }
+
+  updatePhotoUrl({required String uid, required String url}) async {
+    await firestore.collection("users").doc(uid).update({
+      "photoUrl": url,
+    });
+
+    await FirebaseAuth.instance.currentUser!.updatePhotoURL(url);
   }
 }
