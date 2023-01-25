@@ -1,4 +1,6 @@
 // ignore_for_file:  unnecessary_string_interpolations
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pillext/providers/user_provider.dart';
@@ -15,24 +17,41 @@ class CommentCard extends StatefulWidget {
 }
 
 class _CommentCardState extends State<CommentCard> {
+  var commentData;
   bool isLiked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getCommentData();
+  }
+
+  getCommentData() async {
+    var comment = await FirebaseFirestore.instance
+        .collection("posts")
+        .doc(widget.snap['postId'])
+        .collection("comments")
+        .doc(widget.snap['commentId'])
+        .get();
+
+    commentData = comment.data();
+
+    List likes = commentData['likes'];
+    print(likes);
+    if (likes.contains(FirebaseAuth.instance.currentUser!.uid)) {
+      setState(() {
+        isLiked = true;
+      });
+    } else {
+      setState(() {
+        isLiked = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final model.User user = Provider.of<UserProvider>(context).getUser;
-
-    getLikeData() {
-      List likes = widget.snap['likes'];
-      if (likes.contains(user.uid)) {
-        setState(() {
-          isLiked = true;
-        });
-      } else {
-        setState(() {
-          isLiked = false;
-        });
-      }
-    }
 
     return Container(
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
@@ -58,7 +77,7 @@ class _CommentCardState extends State<CommentCard> {
                             ),
                           ),
                           TextSpan(
-                            text: '${widget.snap["comment"]}',
+                            text: ' ${widget.snap["comment"]}',
                             style: const TextStyle(
                               color: Colors.black,
                             ),
@@ -92,20 +111,20 @@ class _CommentCardState extends State<CommentCard> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child: IconButton(
                 icon: isLiked
-                    ? Icon(
-                        Icons.favorite_border,
-                        size: 18,
-                      )
-                    : Icon(
+                    ? const Icon(
                         Icons.favorite,
                         color: Colors.red,
+                        size: 18,
+                      )
+                    : const Icon(
+                        Icons.favorite_border,
                         size: 20,
                       ),
                 onPressed: () async {
-                  getLikeData();
+                  getCommentData();
                   FireStoreMethods().likeComment(
                     user.uid,
                     widget.snap['likes'],
