@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:pillext/utils/gobal_variables.dart';
 import 'package:pillext/widgets/post_card.dart';
 
 class FeedScreen extends StatelessWidget {
@@ -7,7 +9,24 @@ class FeedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar: width > webScreenSize
+          ? null
+          : AppBar(
+              backgroundColor: Colors.indigo,
+              centerTitle: false,
+              title: const Text("Pillext"),
+              // actions: [
+              //   IconButton(
+              //     icon: const Icon(
+              //       Icons.messenger_outline,
+              //       color: Colors.white,
+              //     ),
+              //     onPressed: () {},
+              //   ),
+              // ],
+            ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection("posts")
