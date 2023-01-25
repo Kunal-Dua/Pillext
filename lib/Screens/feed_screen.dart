@@ -8,17 +8,6 @@ class FeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        shadowColor: null,
-        title: const Text(
-          "Pillext",
-        ),
-        centerTitle: false,
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.chat_outlined))
-        ],
-      ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection("posts")

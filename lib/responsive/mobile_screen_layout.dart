@@ -37,6 +37,17 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
     }
 
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        shadowColor: null,
+        title: const Text(
+          "Pillext",
+        ),
+        centerTitle: false,
+        actions: [
+          // IconButton(onPressed: () {}, icon: const Icon(Icons.chat_outlined))
+        ],
+      ),
       body: PageView(
         controller: pageController,
         onPageChanged: onPageChanged,
