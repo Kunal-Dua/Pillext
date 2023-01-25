@@ -143,7 +143,7 @@ class _PostCardState extends State<PostCard> {
         GestureDetector(
           onDoubleTap: () {
             FireStoreMethods().likePost(
-              widget.snap['uid'],
+              user.uid,
               widget.snap['postId'],
               widget.snap['likes'],
             );
@@ -201,7 +201,7 @@ class _PostCardState extends State<PostCard> {
                         ),
                   onPressed: () {
                     FireStoreMethods().likePost(
-                      widget.snap['uid'],
+                      user.uid,
                       widget.snap['postId'],
                       widget.snap['likes'],
                     );
@@ -236,7 +236,7 @@ class _PostCardState extends State<PostCard> {
               Text('${widget.snap["likes"].length} likes'),
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.only(top: 4),
+                padding: const EdgeInsets.only(top: 2),
                 child: RichText(
                   text: TextSpan(
                     style: const TextStyle(color: Colors.black),
@@ -244,7 +244,7 @@ class _PostCardState extends State<PostCard> {
                       TextSpan(
                           text: widget.snap['username'],
                           style: const TextStyle(fontWeight: FontWeight.bold)),
-                      TextSpan(text: widget.snap["description"])
+                      TextSpan(text: ' ${widget.snap['description']}')
                     ],
                   ),
                 ),
