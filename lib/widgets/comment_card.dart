@@ -37,7 +37,6 @@ class _CommentCardState extends State<CommentCard> {
     commentData = comment.data();
 
     List likes = commentData['likes'];
-    print(likes);
     if (likes.contains(FirebaseAuth.instance.currentUser!.uid)) {
       setState(() {
         isLiked = true;
