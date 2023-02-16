@@ -70,6 +70,35 @@ class AuthMethods {
   Future<String> signInWithGoogle() async {
     String res = "";
     try {
+      String time = DateFormat.yMMMd().format(Timestamp.now().toDate());
+
+      if (kIsWeb) {
+        GoogleAuthProvider googleProvider = GoogleAuthProvider();
+
+        googleProvider
+            .addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+        UserCredential currentUser = await auth.signInWithPopup(googleProvider);
+        if (currentUser.additionalUserInfo!.isNewUser) {
+          await firestore.collection("users").doc(currentUser.user!.uid).set({
+            "uid": currentUser.user!.uid,
+            "email": currentUser.user!.email,
+            "photoUrl": currentUser.user!.photoURL,
+            "username": currentUser.user!.displayName,
+            "bio": "",
+            "followers": [],
+            "following": [],
+            "notifications": ['User signed in at $time'],
+          });
+        } else {
+          await firestore
+              .collection("users")
+              .doc(currentUser.user!.uid)
+              .update({
+            "notifications": FieldValue.arrayUnion(['User signed in at $time']),
+          });
+        }
+      }
       final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
 
       final GoogleSignInAuthentication gAuth = await gUser!.authentication;
@@ -81,8 +110,6 @@ class AuthMethods {
 
       UserCredential currentUser =
           await FirebaseAuth.instance.signInWithCredential(credential);
-
-      String time = DateFormat.yMMMd().format(Timestamp.now().toDate());
 
       if (currentUser.additionalUserInfo!.isNewUser) {
         await firestore.collection("users").doc(currentUser.user!.uid).set({
